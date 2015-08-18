@@ -139,6 +139,14 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         } else {
             getRootPane().setDefaultButton(m_jButtonOK);
             printState();
+            // N. Deppe 08/11/2015
+            // Fix issue where dialog keeps moving lower and lower on the screen
+            // Get the size of the screen, and center the dialog in the window
+            Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
+            Dimension thisDim = this.getSize();
+            int x = (screenDim.width - thisDim.width) / 2;
+            int y = (screenDim.height - thisDim.height) / 2;
+            this.setLocation(x, y);
             setVisible(true);
         }
         
