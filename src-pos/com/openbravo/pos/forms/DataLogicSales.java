@@ -625,7 +625,30 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 , null
                 , new SerializerReadClass(PromoTypeInfo.class));
     }
-              
+         
+    
+    
+    // NGD Aug 2015 - Added for assortments
+    /**
+     *
+     * @param id
+     * @return
+     * @throws BasicException
+     */
+    public final AssortmentInfo getAssortmentInfo(String id) throws BasicException {
+        return (AssortmentInfo) new PreparedSentence(s
+        , "SELECT "
+                + "ID, "
+                + "NAME, "
+                + "VISIBLE "
+                + "FROM ASSORTMENTS "
+                + "WHERE ID = ? "
+                + "ORDER BY NAME"
+        , SerializerWriteString.INSTANCE
+        , CategoryInfo.getSerializerRead()).find(id);
+    }    
+    
+    
     /**
      *
      * @param id
@@ -859,6 +882,26 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 });
     }
 
+
+    // N Deppe Aug 2015 added for assortments
+    /**
+     *
+     * @return
+     */
+    public final SentenceList getAssortmentsList() {
+        return new StaticSentence(s
+            , "SELECT "
+                + "ID, "
+                + "NAME, "
+                + "VISIBLE "
+                + "FROM ASSORTMENTS "
+                + "ORDER BY NAME"
+            , null
+            , CategoryInfo.getSerializerRead());
+    }
+    
+    
+    
 // JG 3 Oct 2013 - Add Catalogue Status (temp holder for eCommerce links)
     /**
      *
@@ -1708,6 +1751,25 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 , "DELETE FROM PRODUCTS_CAT WHERE PRODUCT = ANY (SELECT ID FROM PRODUCTS WHERE CATEGORY = ?)"
                 , SerializerWriteString.INSTANCE);
     }
+
+    
+    // N Deppe Aug 2015 Added for assortments
+    /**
+     *
+     * @return
+     */
+    public final TableDefinition getTableAssortments() {
+        return new TableDefinition(s,
+            "ASSORTMENTS"
+            , new String[] {"ID", "NAME", "VISIBLE"}
+            , new String[] {"ID", AppLocal.getIntString("label.name"), AppLocal.getIntString("label.visible")}
+            , new Datas[] {Datas.STRING, Datas.STRING, Datas.BOOLEAN}
+            , new Formats[] {Formats.STRING, Formats.STRING, Formats.BOOLEAN}
+            , new int[] {0}
+        );
+    }
+    
+    
     
 // JG 3 Oct 2013 - Add Catalgue Status (temp holder for eCommerce links)
     /**
