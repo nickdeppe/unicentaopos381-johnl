@@ -66,10 +66,14 @@ public class PeoplePanel extends JPanelTable {
         //It meant that changes had to added to toher class for this to work.
         //The user list is not update after a logoff\logon event after the first activation, until a restart.
         //Any help with this will be appreciated John l
+		  
+		  // N Deppe - Don't know anything about the above, but at least I can fix the table and field names to be 
+		  // uppercase.  This was causing an issue with my MySQL database.
+		  
         try {
             AppLocal.LIST_BY_RIGHTS = "select PEOPLE.ID, PEOPLE.NAME, APPPASSWORD, ROLE, VISIBLE, CARD,"
-                    + "IMAGE from PEOPLE inner join roles on people.role=roles.id "
-                    + "where roles.rightslevel <= " + dlAdmin.getRightsLevelByID(app.getAppUserView().getUser().getRole());
+                    + "IMAGE from PEOPLE inner join ROLES on PEOPLE.ROLE=ROLES.ID "
+                    + "where ROLES.RIGHTSLEVEL <= " + dlAdmin.getRightsLevelByID(app.getAppUserView().getUser().getRole());
         } catch (BasicException ex) {
             Logger.getLogger(PeoplePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
