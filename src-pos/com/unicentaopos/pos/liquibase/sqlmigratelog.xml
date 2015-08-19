@@ -708,30 +708,14 @@
         <column name="DATENEW" type="timestamp"/>
     </createIndex>
 </changeSet>            
-
-<changeSet author="UnicentaOpos - John L" id="Create reservation_CUSTOMERS Table">
-    <createTable tableName="RESERVATION_CUSTOMERS">
-        <column name="ID" type="varchar(255)">
-            <constraints primaryKey="true" nullable="false"/>
-        </column>
-        <column name="CUSTOMER" type="varchar(255)">
-            <constraints nullable="false"/>
-        </column>
-    </createTable>
-
-    <addForeignKeyConstraint baseColumnNames="ID"
-                             constraintName ="RES_CUST_FK_1"
-                             referencedColumnNames = "ID"
-                             baseTableName="RESERVATION_CUSTOMERS"
-                             referencedTableName="reservations"/>
-
-    <addForeignKeyConstraint baseColumnNames="CUSTOMER"
-                             constraintName ="RES_CUST_FK_2"
-                             referencedColumnNames = "ID"
-                             baseTableName="RESERVATION_CUSTOMERS"
-                             referencedTableName="CUSTOMERS"/>
-</changeSet> 
-                                                                                          
+       
+																														
+																																																									  
+<!-- 
+	N Deppe Aug 18 2015 
+	* Fixed bug where RESERVATION_CUSTOMERS was being created first, and adding foreign key 
+	  constraint to RESERVATIONS before RESERVATIONS was created.
+-->
 <changeSet author="UnicentaOpos - John L" id="Create reservations Table">
     <createTable tableName="RESERVATIONS">
         <column name="ID" type="varchar(255)">
@@ -761,7 +745,33 @@
         <column name="DATENEW" type="timestamp"/>
     </createIndex>
 </changeSet>
-                    
+
+
+<changeSet author="UnicentaOpos - John L" id="Create reservation_CUSTOMERS Table">
+    <createTable tableName="RESERVATION_CUSTOMERS">
+        <column name="ID" type="varchar(255)">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="CUSTOMER" type="varchar(255)">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
+
+    <addForeignKeyConstraint baseColumnNames="ID"
+                             constraintName ="RES_CUST_FK_1"
+                             referencedColumnNames = "ID"
+                             baseTableName="RESERVATION_CUSTOMERS"
+                             referencedTableName="RESERVATIONS"/>
+
+    <addForeignKeyConstraint baseColumnNames="CUSTOMER"
+                             constraintName ="RES_CUST_FK_2"
+                             referencedColumnNames = "ID"
+                             baseTableName="RESERVATION_CUSTOMERS"
+                             referencedTableName="CUSTOMERS"/>
+</changeSet> 
+						  
+													 
+																				                    
 <changeSet author="UnicentaOpos - John L" id="Create Resources Table">
     <createTable tableName="RESOURCES">
         <column name="ID" type="varchar(255)">

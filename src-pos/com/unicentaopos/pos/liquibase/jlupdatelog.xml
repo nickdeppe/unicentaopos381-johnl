@@ -1059,7 +1059,94 @@
         <update tableName="APPJL">
             <column name="VERSION" value="1.7"/>
         </update>
-    </changeSet>   
-    
+    </changeSet>
+	 
+	 
+	 <changeSet author="UnicentaOpos - N Deppe" id="New 1.8 assortments table mysql" dbms="mysql, derby, oracle">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ASSORTMENTS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ASSORTMENTS">
+            <column name="ID" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VISIBLE" type="${boolean.type}" defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+	 </changeSet>
+
+		 	 
+	 <changeSet author="UnicentaOpos - N Deppe" id="New 1.8 assortments table postgresql" dbms="postgresql, hypersql, hsqldb">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ASSORTMENTS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ASSORTMENTS">
+            <column name="ID" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VISIBLE" type="${boolean.type}" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+	 </changeSet>
+
+	 
+	 <changeSet author="UnicentaOpos - N Deppe" id="New 1.8 products_assortments tables" dbms="mysql, derby, oracle, postgresql, hypersql, hsqldb">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="PRODUCTS_ASSORTMENTS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="PRODUCTS_ASSORTMENTS">
+            <column name="PRODUCT_ID" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ASSORTMENT_ID" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+		 <addForeignKeyConstraint baseColumnNames="PRODUCT_ID"
+		                          baseTableName="PRODUCTS_ASSORTMENTS"
+										  constraintName="FK_PRODUCTS_ASSORTMENTS_PRODUCTS"
+										  onDelete="CASCADE"
+										  onUpdate="RESTRICT"
+										  referencedColumnNames="ID"
+										  referencedTableName="PRODUCTS" />
+		 <addForeignKeyConstraint baseColumnNames="ASSORTMENT_ID"
+		                          baseTableName="PRODUCTS_ASSORTMENTS"
+										  constraintName="FK_PRODUCTS_ASSORTMENTS_ASSORTMENTS"
+										  onDelete="CASCADE"
+										  onUpdate="RESTRICT"
+										  referencedColumnNames="ID"
+										  referencedTableName="ASSORTMENTS" />
+	 </changeSet>
+	 
+	 
+	 <changeSet author="UnicentaOpos - N Deppe" id="New 1.8 assortments permission" dbms="mysql, derby, oracle, postgresql, hypersql, hsqldb">
+        <insert tableName="DBPERMISSIONS">		
+            <column name="CLASSNAME" value="com.openbravo.pos.inventory.AssortmentsPanel"/>
+            <column name="SECTION" value="##label.sectionstock"/>
+            <column name="DISPLAYNAME" value="##label.displayname117"/>
+            <column name="DESCRIPTION" value="##label.description117"/>
+        </insert>		 
+	 </changeSet>
+	 
+    <changeSet author="UnicentaOpos - N Deppe" id="Register APPJL 1.8" >
+        <update tableName="APPJL">
+            <column name="VERSION" value="1.8"/>
+        </update>
+    </changeSet>
+					     
 </databaseChangeLog>
 

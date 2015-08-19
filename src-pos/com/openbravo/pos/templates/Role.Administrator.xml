@@ -81,6 +81,7 @@
             <class name="/com/openbravo/reports/salebycustomer.bs"/>
 
 <class name="com.openbravo.pos.forms.MenuStockManagement"/>
+	 <class name="com.openbravo.pos.inventory.AssortmentsPanel"/>
     <class name="com.openbravo.pos.inventory.AttributesPanel"/>
     <class name="com.openbravo.pos.inventory.AttributeValuesPanel"/>
     <class name="com.openbravo.pos.inventory.AttributeSetsPanel"/>

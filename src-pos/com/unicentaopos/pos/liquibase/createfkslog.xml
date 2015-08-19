@@ -255,12 +255,18 @@
                                  referencedTableName="FLOORS"/>
     </changeSet>
 
+<!--
+	N Deppe - Aug 18 2015
+	 * Fixed bug - referencedTableName of RES_CUST_FK_1 was lowercase.
+	   This should have been uppercase RESERVATIONS.
+-->
+
     <changeSet author="UnicentaOpos - John L" id="reservation_CUSTOMERS Table FKs">
         <addForeignKeyConstraint baseColumnNames="ID"
                                  constraintName ="RES_CUST_FK_1"
                                  referencedColumnNames = "ID"
                                  baseTableName="RESERVATION_CUSTOMERS"
-                                 referencedTableName="reservations"/>
+                                 referencedTableName="RESERVATIONS"/>
 
         <addForeignKeyConstraint baseColumnNames="CUSTOMER"
                                  constraintName ="RES_CUST_FK_2"
@@ -315,6 +321,25 @@
                                  baseTableName="STOCKDIARY"
                                  referencedTableName="LOCATIONS"/>
     </changeSet>
+	 
+	 
+	 <changeSet author="UnicentaOpos - N Deppe" id="New 1.8 products_assortments table FKs" dbms="mysql, derby, oracle, postgresql, hypersql, hsqldb">
+		 <addForeignKeyConstraint baseColumnNames="PRODUCT_ID"
+		                          baseTableName="PRODUCTS_ASSORTMENTS"
+										  constraintName="FK_PRODUCTS_ASSORTMENTS_PRODUCTS"
+										  onDelete="CASCADE"
+										  onUpdate="RESTRICT"
+										  referencedColumnNames="ID"
+										  referencedTableName="PRODUCTS" />
+		 <addForeignKeyConstraint baseColumnNames="ASSORTMENT_ID"
+		                          baseTableName="PRODUCTS_ASSORTMENTS"
+										  constraintName="FK_PRODUCTS_ASSORTMENTS_ASSORTMENTS"
+										  onDelete="CASCADE"
+										  onUpdate="RESTRICT"
+										  referencedColumnNames="ID"
+										  referencedTableName="ASSORTMENTS" />
+	 </changeSet>
+	 
     
 </databaseChangeLog>
 

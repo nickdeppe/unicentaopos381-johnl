@@ -2255,6 +2255,14 @@
         </createIndex>
     </changeSet>
 
+
+
+<!--
+	N Deppe - Aug 18 2015
+	 * Fixed bug - referencedTableName of RES_CUST_FK_1 was lowercase.
+	   This should have been uppercase RESERVATIONS.
+-->
+
     <changeSet author="UnicentaOpos - John L" id="Create reservation_CUSTOMERS Table">
         <preConditions onFail="MARK_RAN">
             <not>
@@ -2275,7 +2283,7 @@
                                  constraintName ="RES_CUST_FK_1"
                                  referencedColumnNames = "ID"
                                  baseTableName="RESERVATION_CUSTOMERS"
-                                 referencedTableName="reservations"/>
+                                 referencedTableName="RESERVATIONS"/>
 
         <addForeignKeyConstraint baseColumnNames="CUSTOMER"
                                  constraintName ="RES_CUST_FK_2"
