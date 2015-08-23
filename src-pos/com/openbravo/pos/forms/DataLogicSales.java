@@ -897,7 +897,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 + "FROM ASSORTMENTS "
                 + "ORDER BY NAME"
             , null
-            , CategoryInfo.getSerializerRead());
+            , AssortmentInfo.getSerializerRead());
     }
     
     
