@@ -45,8 +45,9 @@ public class JTicketCatalogLines extends javax.swing.JPanel {
      * @param pricevisible
      * @param taxesincluded
      * @param width
-     * @param height */
-    public JTicketCatalogLines(AppView app, JPanelTicketEdits jTicketEdit, boolean pricevisible, boolean taxesincluded, int width, int height) {
+     * @param height
+	 * @throws com.openbravo.basic.BasicException */
+    public JTicketCatalogLines(AppView app, JPanelTicketEdits jTicketEdit, boolean pricevisible, boolean taxesincluded, int width, int height) throws BasicException {
         
         DataLogicSystem dlSystem = null;
         DataLogicSales dlSales = null;

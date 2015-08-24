@@ -27,6 +27,7 @@ import com.openbravo.format.Formats;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.DataLogicSales;
 import com.openbravo.pos.sales.TaxesLogic;
+import com.openbravo.pos.ticket.ProductAssortmentInfo;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,6 +41,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -66,6 +71,9 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     private boolean priceselllock = false;
 
     private boolean reportlock = false;
+	 
+	 
+	 private ProductAssortmentsTableModel jAssortmentsTableModel;
 
 // JG Mar 14 - Preparing for direct Printer assign rather than script
 //    private Object m_Printkb; - use this for printernumber
@@ -150,7 +158,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
 // Addes JDl 6.5.15        
         m_jDiscounted.addActionListener(dirty);
-        
+		  
         writeValueEOF();
     }
 
@@ -172,6 +180,8 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         attmodel = new ComboBoxValModel(attsent.list());
         attmodel.add(0, null);
         m_jAtt.setModel(attmodel);
+		  
+		  
     }
 
     /**
@@ -1089,6 +1099,8 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
       jScrollPane1 = new javax.swing.JScrollPane();
       txtAttributes = new javax.swing.JTextArea();
       jPanel6 = new javax.swing.JPanel();
+      jAssortmentsScrollPane = new javax.swing.JScrollPane();
+      jAssortmentsTable = new javax.swing.JTable();
 
       jLabel24.setText("jLabel24");
 
@@ -1243,7 +1255,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
          }
       });
       jPanel1.add(m_jVerpatrib);
-      m_jVerpatrib.setBounds(310, 160, 120, 23);
+      m_jVerpatrib.setBounds(310, 160, 120, 24);
 
       m_jTextTip.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
       jPanel1.add(m_jTextTip);
@@ -1262,7 +1274,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
          }
       });
       jPanel1.add(m_jCheckWarrantyReceipt);
-      m_jCheckWarrantyReceipt.setBounds(130, 310, 310, 23);
+      m_jCheckWarrantyReceipt.setBounds(130, 310, 310, 24);
 
       m_jGrossProfit.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
       m_jGrossProfit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -1416,7 +1428,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
       jPanel2.add(jLabel33);
       jLabel33.setBounds(10, 240, 130, 25);
       jPanel2.add(m_jDiscounted);
-      m_jDiscounted.setBounds(160, 270, 20, 21);
+      m_jDiscounted.setBounds(160, 270, 20, 24);
 
       jTabbedPane1.addTab(AppLocal.getIntString("label.prodstock"), jPanel2); // NOI18N
       jTabbedPane1.addTab("Image", m_jImage);
@@ -1462,7 +1474,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
       jPanel4.add(jLabel17);
       jLabel17.setBounds(10, 200, 330, 100);
       jPanel4.add(jSeparator1);
-      jSeparator1.setBounds(150, 300, 0, 2);
+      jSeparator1.setBounds(150, 300, 4, 6);
 
       jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -1560,15 +1572,27 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
       jTabbedPane1.addTab(AppLocal.getIntString("label.properties"), jPanel3); // NOI18N
 
+      jAssortmentsScrollPane.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+      jAssortmentsTable.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+      jAssortmentsTable.setModel(jAssortmentsTableModel);
+      jAssortmentsScrollPane.setViewportView(jAssortmentsTable);
+
       javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
       jPanel6.setLayout(jPanel6Layout);
       jPanel6Layout.setHorizontalGroup(
          jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 585, Short.MAX_VALUE)
+         .addGroup(jPanel6Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jAssortmentsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+            .addContainerGap())
       );
       jPanel6Layout.setVerticalGroup(
          jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 391, Short.MAX_VALUE)
+         .addGroup(jPanel6Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jAssortmentsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+            .addContainerGap())
       );
 
       jTabbedPane1.addTab("Assortments", jPanel6);
@@ -1642,6 +1666,8 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JScrollPane jAssortmentsScrollPane;
+   private javax.swing.JTable jAssortmentsTable;
    private javax.swing.JButton jButtonHTML;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel10;

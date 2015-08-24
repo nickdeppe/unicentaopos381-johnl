@@ -645,7 +645,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 + "WHERE ID = ? "
                 + "ORDER BY NAME"
         , SerializerWriteString.INSTANCE
-        , CategoryInfo.getSerializerRead()).find(id);
+        , AssortmentInfo.getSerializerRead()).find(id);
     }    
     
     
@@ -1846,6 +1846,30 @@ public class DataLogicSales extends BeanFactoryDataSingle {
             , new int[] {0}
         );
     }
+	 
+	 
+
+// N Deppe - Aug 2015 - Added for assortments
+		/**
+		 *
+	 * @param productID
+		 * @return
+		 * @throws BasicException
+		 */
+		@SuppressWarnings("unchecked")
+		public final List<ProductAssortmentInfo> getProductAssortmentList(String productID) throws BasicException {
+			return (List<ProductAssortmentInfo>) new PreparedSentence(s,
+					  " SELECT "
+					+ "  A.ID,"
+					+ "  A.NAME"
+					+ "  EXISTS (SELECT * FROM PRODUCTS_ASSORTMENTS AS PA WHERE PA.ASSORTMENT_ID = A.ID AND PA.PRODUCT_ID = ?) AS SELECTED"
+					+ " FROM"
+					+ "  ASSORTMENTS AS A;",
+                SerializerWriteString.INSTANCE,
+                ProductAssortmentInfo.getSerializerRead()).find(productID); 
+		}	 
+	 
+	 
    
     /**
      *

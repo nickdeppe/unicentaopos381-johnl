@@ -30,7 +30,7 @@ import com.openbravo.data.loader.SerializerRead;
 
 /**
  *
- * @author  Adrian
+ * @author  N. Deppe
  * @version 
  */
 public class AssortmentInfo implements IKeyed {
@@ -39,7 +39,6 @@ public class AssortmentInfo implements IKeyed {
     private String m_sID;
     private String m_sName;
     private Boolean m_bVisible;
-    private String m_sColour;
 
     /** Creates new AssortmentInfo
      * @param id
@@ -91,7 +90,6 @@ public class AssortmentInfo implements IKeyed {
     public void setName(String sName) {
         m_sName = sName;
     }
-// ADDED JDL 13.04.13 *************
 
     /**
      *

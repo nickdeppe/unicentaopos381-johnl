@@ -73,8 +73,9 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
     
     /** Creates new form StockDiaryEditor
      * @param app
-     * @param dirty */
-    public StockDiaryEditor(AppView app, DirtyManager dirty) {
+     * @param dirty
+	 * @throws com.openbravo.basic.BasicException */
+    public StockDiaryEditor(AppView app, DirtyManager dirty) throws BasicException {
         
         m_App = app;
         m_dlSales = (DataLogicSales) m_App.getBean("com.openbravo.pos.forms.DataLogicSales");

@@ -85,11 +85,15 @@ public class JPanelTicketSales extends JPanelTicket {
                     Integer.parseInt(m_jbtnconfig.getProperty("img-width", "64")),
                     Integer.parseInt(m_jbtnconfig.getProperty("img-height", "54")));
         } else {
-        m_cat = new JCatalog(dlSales,
-                "true".equals(m_jbtnconfig.getProperty("pricevisible")),
-                "true".equals(m_jbtnconfig.getProperty("taxesincluded")),
-                Integer.parseInt(m_jbtnconfig.getProperty("img-width", "64")),
-                Integer.parseInt(m_jbtnconfig.getProperty("img-height", "54")));
+			  try {
+				  m_cat = new JCatalog(dlSales,
+							 "true".equals(m_jbtnconfig.getProperty("pricevisible")),
+							 "true".equals(m_jbtnconfig.getProperty("taxesincluded")),
+							 Integer.parseInt(m_jbtnconfig.getProperty("img-width", "64")),
+							 Integer.parseInt(m_jbtnconfig.getProperty("img-height", "54")));
+			  } catch (BasicException ex) {
+				  Logger.getLogger(JPanelTicketSales.class.getName()).log(Level.SEVERE, null, ex);
+			  }
         }
 
         //   Integer.parseInt(m_jbtnconfig.getProperty("img-width", "32")),

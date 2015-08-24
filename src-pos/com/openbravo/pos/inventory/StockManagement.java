@@ -80,8 +80,9 @@ public class StockManagement extends JPanel implements JPanelView {
    
    
     /** Creates new form StockManagement
-     * @param app */
-    public StockManagement(AppView app) {
+     * @param app
+	 * @throws com.openbravo.basic.BasicException */
+    public StockManagement(AppView app) throws BasicException {
         
         m_App = app;
         m_dlSystem = (DataLogicSystem) m_App.getBean("com.openbravo.pos.forms.DataLogicSystem");
